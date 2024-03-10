@@ -187,8 +187,12 @@ function getCountWeekendsInMonth(month, year) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate(/* date */) {
-  throw new Error('Not implemented');
+function getWeekNumberByDate(date) {
+  const DAY_LENGTH = 1000 * 60 * 60 * 24;
+  const WEEK_LENGTH = 7;
+  const yearStart = new Date(date.getFullYear(), 0, 1);
+  const days = (date - yearStart) / DAY_LENGTH + 1;
+  return Math.ceil((days + yearStart.getDay()) / WEEK_LENGTH);
 }
 
 /**
