@@ -61,8 +61,13 @@ const getDayName = (date) =>
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const copy = new Date(date.toJSON());
+  const days = [5, 4, 3, 2, 1, 7, 6];
+  const dayNow = copy.getDay();
+  const newDate = copy.getDate() + days[dayNow];
+  copy.setDate(newDate);
+  return copy;
 }
 
 /**
