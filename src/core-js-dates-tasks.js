@@ -257,11 +257,16 @@ function getQuarter(date) {
  * { start: '01-01-2024', end: '10-01-2024' }, 1, 1 => ['01-01-2024', '03-01-2024', '05-01-2024', '07-01-2024', '09-01-2024']
  */
 function getWorkSchedule(period, countWorkDays, countOffDays) {
+  const splitter = (string) =>
+    string
+      .split('-')
+      .map((el) => +el)
+      .reverse();
+  const newDate = (args) => new Date(args[0], args[1] - 1, args[2]);
   const { start, end } = period;
-  const [startDay, startMonth, startYear] = start.split('-').map((el) => +el);
-  const [endDay, endMonth, endYear] = end.split('-').map((el) => +el);
-  const startDate = new Date(startYear, startMonth - 1, startDay);
-  const endDate = new Date(endYear, endMonth - 1, endDay);
+  const [startDate, endDate] = [start, end].map((dateString) =>
+    newDate(splitter(dateString))
+  );
   const schedule = [];
   while (
     startDate.getDate() <= endDate.getDate() &&
