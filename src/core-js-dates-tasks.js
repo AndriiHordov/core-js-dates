@@ -161,8 +161,17 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(month, year) {
+  const date = new Date(year, month, 0);
+  const days = [];
+  const thisDate = date.getDate();
+  let counter = 1;
+  while (month - 1 === date.getMonth()) {
+    days.push(date.getDay());
+    date.setDate(thisDate - counter);
+    counter += 1;
+  }
+  return days.filter((dayNumber) => dayNumber === 6 || !dayNumber).length;
 }
 
 /**
