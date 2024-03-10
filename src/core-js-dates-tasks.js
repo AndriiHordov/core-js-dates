@@ -42,19 +42,13 @@ const getTime = (date) => new Date(date).toTimeString().slice(0, 8);
  * '03 Dec 1995 00:12:00 UTC' => 'Sunday'
  * '2024-01-30T00:00:00.000Z' => 'Tuesday'
  */
-function getDayName(date) {
-  const dayIndex = new Date(date).getDay();
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  return days[dayIndex];
-}
+const getDayName = (date) =>
+  new Intl.DateTimeFormat('en-GB', {
+    dateStyle: 'full',
+    timeZone: 'UTC',
+  })
+    .format(new Date(date))
+    .split(',')[0];
 
 /**
  * Returns the date of the next Friday from a given date.
